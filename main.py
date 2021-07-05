@@ -1,5 +1,6 @@
 import json
 
+from input_list import file_list
 from stopwords import stopwords
 from krwordrank.word import KRWordRank
 from wordcloud import WordCloud
@@ -38,8 +39,10 @@ def generate_wordcloud(keywords):
     return image
 
 if __name__ == "__main__":
-    file_name = "닌텐도 스위치 모여봐요 동물의 숲 한국어 게임타이틀"
+    for file_name in file_list:
+        keywords = generate_keywords("input/" + file_name + ".json")
+        image = generate_wordcloud(keywords)
 
-    keywords = generate_keywords("input/" + file_name + ".json")
-    image = generate_wordcloud(keywords)
-    image.save("result/" + file_name + ".jpeg")
+        ## add result
+        image.save("result/" + file_name + ".jpeg")
+        print("image saved: " + file_name)
